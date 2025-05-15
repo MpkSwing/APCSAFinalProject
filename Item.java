@@ -1,6 +1,7 @@
 // Item.java
+
 /**
- * Represents a product with core details such as ID, name, category, and base cost.
+ * Represents a product with an ID, name, category, and base cost.
  */
 public class Item {
     private String id;
@@ -22,34 +23,22 @@ public class Item {
         this.baseCost = baseCost;
     }
 
-    /**
-     * Returns the item ID.
-     * @return item ID
-     */
+    /** @return the item ID */
     public String getId() {
         return id;
     }
 
-    /**
-     * Returns the item name.
-     * @return item name
-     */
+    /** @return the item name */
     public String getName() {
         return name;
     }
 
-    /**
-     * Returns the item category.
-     * @return item category
-     */
+    /** @return the item category */
     public String getCategory() {
         return category;
     }
 
-    /**
-     * Returns the base cost of the item.
-     * @return base cost
-     */
+    /** @return the base cost of this item */
     public double getBaseCost() {
         return baseCost;
     }

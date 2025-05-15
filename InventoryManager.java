@@ -1,6 +1,7 @@
 // InventoryManager.java
+
 /**
- * Manages items, inventory, and sales with simple arrays.
+ * Coordinates items, inventory, and sales operations.
  */
 public class InventoryManager {
     private Item[] items;
@@ -10,7 +11,7 @@ public class InventoryManager {
     private int saleCount;
 
     /**
-     * Constructs a new InventoryManager with capacity for 100 items and sales.
+     * Constructs an InventoryManager with capacity for 100 items and 100 sales.
      */
     public InventoryManager() {
         items = new Item[100];
@@ -21,16 +22,16 @@ public class InventoryManager {
     }
 
     /**
-     * Adds stock for an item variant. Registers the item if new.
-     * @param id item ID
-     * @param name item name
-     * @param category item category
-     * @param baseCost item cost
-     * @param size size label
-     * @param qty quantity to add
+     * Registers or updates stock for an item-size combination.
+     * @param id the item ID
+     * @param name the item name
+     * @param category the item category
+     * @param baseCost the cost per unit
+     * @param size the size label
+     * @param qty the quantity to add
      */
-    public void addStock(String id, String name, String category, double baseCost,
-                         String size, int qty) {
+    public void addStock(String id, String name, String category,
+                         double baseCost, String size, int qty) {
         boolean found = false;
         for (int i = 0; i < itemCount; i++) {
             if (items[i].getId().equals(id)) {
@@ -39,26 +40,24 @@ public class InventoryManager {
             }
         }
         if (!found && itemCount < items.length) {
-            items[itemCount] = new Item(id, name, category, baseCost);
-            itemCount = itemCount + 1;
+            items[itemCount++] = new Item(id, name, category, baseCost);
         }
         inventory.addVariant(id, size, qty);
     }
 
     /**
-     * Processes a sale of a variant if sufficient stock exists.
-     * @param id item ID
-     * @param size size label
-     * @param qty quantity to sell
-     * @param price sale price per unit
+     * Processes a sale if sufficient stock exists, logging a SaleRecord.
+     * @param id the item ID
+     * @param size the size label
+     * @param qty the quantity to sell
+     * @param price the sale price per unit
      */
     public void sellItem(String id, String size, int qty, double price) {
         int current = inventory.getQuantity(id, size);
         if (current >= qty) {
             inventory.addVariant(id, size, -qty);
             if (saleCount < sales.length) {
-                sales[saleCount] = new SaleRecord(id, size, qty, price);
-                saleCount = saleCount + 1;
+                sales[saleCount++] = new SaleRecord(id, size, qty, price);
             }
         } else {
             System.out.println("Insufficient stock.");
@@ -66,22 +65,23 @@ public class InventoryManager {
     }
 
     /**
-     * Prints current inventory to the console.
+     * Prints the current inventory to the console.
      */
     public void listInventory() {
         inventory.listVariants();
     }
 
     /**
-     * Prints sales history to the console.
+     * Prints the sales history, including dates and details.
      */
     public void listSales() {
         for (int i = 0; i < saleCount; i++) {
             SaleRecord s = sales[i];
-            System.out.println("Sold " + s.getQuantitySold()
-                + " of " + s.getItemId()
-                + " size " + s.getSize()
-                + " at $" + s.getSalePrice());
+            System.out.println("Date: " + s.getDate()
+                    + " Sold " + s.getQuantitySold()
+                    + " of " + s.getItemId()
+                    + " size " + s.getSize()
+                    + " at $" + s.getSalePrice());
         }
     }
 }

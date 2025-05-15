@@ -3,11 +3,11 @@ import java.util.Scanner;
 
 /**
  * Entry point for the inventory simulator.
- * Presents a console menu to manage stock and sales.
+ * Presents a console menu and handles user interaction.
  */
 public class Main {
     /**
-     * Main loop handling user input.
+     * Main method starting the application.
      * @param args command-line args (unused)
      */
     public static void main(String[] args) {
@@ -24,6 +24,7 @@ public class Main {
             System.out.println("5: Exit");
             System.out.print("Select option or 'q' to quit: ");
             String choice = scanner.nextLine();
+
             if (choice.equals("q")) {
                 running = false;
                 break;
@@ -52,6 +53,7 @@ public class Main {
                     int qty = Integer.parseInt(qtyIn);
                     manager.addStock(id1, name, category, cost, size1, qty);
                     break;
+
                 case "2":
                     System.out.print("ID or 'q': ");
                     String id2 = scanner.nextLine();
@@ -69,15 +71,19 @@ public class Main {
                     double price = Double.parseDouble(priceIn);
                     manager.sellItem(id2, size2, qty2, price);
                     break;
+
                 case "3":
                     manager.listInventory();
                     break;
+
                 case "4":
                     manager.listSales();
                     break;
+
                 case "5":
                     running = false;
                     break;
+
                 default:
                     System.out.println("Invalid option.");
             }

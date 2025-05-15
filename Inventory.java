@@ -1,6 +1,7 @@
 // Inventory.java
+
 /**
- * Stores multiple SizeVariant entries in fixed arrays.
+ * Manages a collection of SizeVariant entries using fixed-size arrays.
  */
 public class Inventory {
     private SizeVariant[] variants;
@@ -15,10 +16,10 @@ public class Inventory {
     }
 
     /**
-     * Adds or updates a size variant in inventory.
-     * @param itemId item identifier
-     * @param size size label
-     * @param qty quantity to add (or subtract if negative)
+     * Adds or updates a SizeVariant in the inventory.
+     * @param itemId the ID of the item
+     * @param size the size label
+     * @param qty the quantity to add (or subtract if negative)
      */
     public void addVariant(String itemId, String size, int qty) {
         for (int i = 0; i < count; i++) {
@@ -30,15 +31,15 @@ public class Inventory {
         }
         if (count < variants.length) {
             variants[count] = new SizeVariant(itemId, size, qty);
-            count = count + 1;
+            count++;
         }
     }
 
     /**
-     * Returns the stock quantity for a given variant.
-     * @param itemId item identifier
-     * @param size size label
-     * @return quantity on hand, or 0 if not found
+     * Returns the current stock quantity for a given variant.
+     * @param itemId the ID of the item
+     * @param size the size label
+     * @return the quantity on hand, or 0 if not found
      */
     public int getQuantity(String itemId, String size) {
         for (int i = 0; i < count; i++) {
@@ -51,14 +52,14 @@ public class Inventory {
     }
 
     /**
-     * Prints all variants to the console.
+     * Prints all SizeVariant entries to the console.
      */
     public void listVariants() {
         for (int i = 0; i < count; i++) {
             SizeVariant v = variants[i];
             System.out.println("Item: " + v.getItemId()
-                + " Size: " + v.getSize()
-                + " Qty: " + v.getQuantity());
+                    + " Size: " + v.getSize()
+                    + " Qty: " + v.getQuantity());
         }
     }
 }
